@@ -83,7 +83,7 @@ import ConfirmModal from "./ConfirmModal.vue";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { DateTime } from "luxon";
-import { ChevronDown, ChevronRight, SquareArrowRight, SquareArrowLeft } from 'lucide-vue-next'
+
 
 export default {
     components: {
@@ -234,7 +234,7 @@ export default {
 
                 this.takenAppointments = response.data.takenAppointments.map(
                     (appointment) => {
-                        return appointment.slice(0, 5); // "HH:mm:ss" → "HH:mm" formatına getir
+                        return appointment.slice(0, 5); // "HH:mm:ss" -> "HH:mm" 
                     }
                 );
 
@@ -245,7 +245,7 @@ export default {
         },
 
         checkAppointmentConflict(time) {
-            return this.takenAppointments.includes(time); // Simplified check
+            return this.takenAppointments.includes(time); 
         },
         selectTime(time) {
             if (!this.checkAppointmentConflict(time)) {
@@ -278,7 +278,7 @@ export default {
                 }
             }
 
-            this.controlMessage = ""; // Hata mesajını temizle
+            this.controlMessage = ""; 
             this.step++;
         },
         prevStep() {
@@ -304,18 +304,17 @@ export default {
             ).toFormat("yyyy-MM-dd");
 
             const appointmentData = {
-                userId: this.userId, // Vuex'ten alınan kullanıcı ID
-                polyclinicId: this.selectedPolyclinic, // Seçilen poliklinik
-                doctorId: this.selectedDoctor, // Seçilen doktor
-                // appointmentDate: this.selectedDate, // Seçilen tarih
+                userId: this.userId, 
+                polyclinicId: this.selectedPolyclinic, 
+                doctorId: this.selectedDoctor, 
                 appointmentDate: formattedDate,
 
-                appointmentTime: this.selectedTime, // Seçilen saat
+                appointmentTime: this.selectedTime, 
             };
             axios
                 .post("http://localhost:8000/appointments", appointmentData)
                 .then((response) => {
-                    console.log(response.data.message); // Başarı mesajını konsola yazdır
+                    console.log(response.data.message); 
                 })
                 .catch((error) => {
                     console.error("Randevu kaydedilirken hata oluştu:", error);
@@ -367,7 +366,7 @@ export default {
                 console.error("Poliklinik alınırken hata oluştu:", error);
             });
 
-        console.log("Kullanıcı ID:", this.userId); // Konsola yazdır
+        console.log("Kullanıcı ID:", this.userId); 
     },
 };
 </script>
@@ -440,7 +439,6 @@ export default {
     font-family: Arial, sans-serif;
 }
 
-/* Saat Başlığı (Ana Satır) */
 .timeslot {
     width: 70%;
     border: 1px solid #ccc;
@@ -449,7 +447,6 @@ export default {
     overflow: hidden;
 }
 
-/* Saat Başlığı İçeriği */
 .timeslot-header {
     background: #f7f7f7;
     padding: 3px;
@@ -464,7 +461,6 @@ export default {
     background: #e2e2e2;
 }
 
-/* Açılan Saatler */
 .timeslot-body {
     padding: 10px;
     display: flex;
@@ -473,7 +469,6 @@ export default {
     background: #fff;
 }
 
-/* Saat Butonları */
 .time-button {
     background: #007bff;
     color: white;
@@ -516,36 +511,25 @@ export default {
 .red {
     background-color: #d9534f;
 }
-
 .control-message {
     position: absolute;
-    /* Sabit değil, ilgili div içinde konumlanacak */
     color: red;
-    /* Hata mesajı kırmızı */
     font-size: 14px;
-    /* Küçük boyut */
     top: 85%;
-    /* Onayla butonunun üstünde olacak */
     left: 50%;
-    /* Ortalamak için */
     transform: translateX(-50%);
-    /* Ortalamayı tam sağlamak için */
     text-align: center;
     width: 100%;
 }
 
 .disabled-time {
     background-color: #e8e8e8;
-    /* Kırmızı renk, dolu saatler için */
     cursor: not-allowed;
-    /* Tıklanamaz göstermek için */
     color: white;
-    /* Yazı rengini beyaz yapalım */
 }
 
 .selected-time {
     background-color: #28a745 !important;
-    /* Seçilen saat için yeşil */
     color: white;
 }
 
